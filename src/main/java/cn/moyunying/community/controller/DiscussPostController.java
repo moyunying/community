@@ -1,9 +1,7 @@
 package cn.moyunying.community.controller;
 
-import cn.moyunying.community.entity.Comment;
-import cn.moyunying.community.entity.DiscussPost;
-import cn.moyunying.community.entity.Page;
-import cn.moyunying.community.entity.User;
+import cn.moyunying.community.entity.*;
+import cn.moyunying.community.event.EventProducer;
 import cn.moyunying.community.service.CommentService;
 import cn.moyunying.community.service.DiscussPostService;
 import cn.moyunying.community.service.LikeService;
@@ -40,6 +38,9 @@ public class DiscussPostController implements CommunityConstant {
     @Autowired
     private LikeService likeService;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addDiscussPost(String title, String content) {
@@ -54,6 +55,14 @@ public class DiscussPostController implements CommunityConstant {
         post.setContent(content);
         post.setCreateTime(new Date());
         discussPostService.addDiscussPost(post);
+
+        // 触发发帖事件
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(user.getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(post.getId());
+        eventProducer.fireEvent(event);
 
         return CommunityUtil.getJSONString(0, "发布成功！");
     }
