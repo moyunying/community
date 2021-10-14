@@ -158,7 +158,6 @@ public class MessageController implements CommunityConstant {
         Message message = messageService.findLatestNotice(user.getId(), TOPIC_COMMENT);
         if (message != null) {
             Map<String, Object> messageVO = new HashMap<>();
-
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -182,7 +181,6 @@ public class MessageController implements CommunityConstant {
         message = messageService.findLatestNotice(user.getId(), TOPIC_LIKE);
         if (message != null) {
             Map<String, Object> messageVO = new HashMap<>();
-
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -206,7 +204,6 @@ public class MessageController implements CommunityConstant {
         message = messageService.findLatestNotice(user.getId(), TOPIC_FOLLOW);
         if (message != null) {
             Map<String, Object> messageVO = new HashMap<>();
-
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
