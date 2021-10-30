@@ -96,7 +96,11 @@
 									<i th:utext="${commentNotice.user.username}">nowcoder</i>
 									评论了你的<b th:text="${commentNotice.entityType==1?'帖子':'回复'}">帖子</b> ...</a>
 								<ul class="d-inline font-size-12 float-right">
-									<li class="d-inline ml-2"><span class="text-primary">共 <i th:text="${commentNotice.count}">3</i> 条会话</span></li>
+									<li class="d-inline ml-2">
+										<a th:href="@{/notice/detail/comment}" class="text-primary">
+											共 <i th:text="${commentNotice.count}">3</i> 条会话
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -117,7 +121,11 @@
 									<i th:utext="${likeNotice.user.username}">nowcoder</i>
 									点赞了你的<b th:text="${likeNotice.entityType==1?'帖子':'回复'}">帖子</b> ...</a>
 								<ul class="d-inline font-size-12 float-right">
-									<li class="d-inline ml-2"><span class="text-primary">共 <i th:text="${likeNotice.count}">3</i> 条会话</span></li>
+									<li class="d-inline ml-2">
+										<a th:href="@{/notice/detail/like}" class="text-primary">
+											共 <i th:text="${likeNotice.count}">3</i> 条会话
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -138,7 +146,11 @@
 									<i th:utext="${followNotice.user.username}">nowcoder</i>
 									关注了你 ...</a>
 								<ul class="d-inline font-size-12 float-right">
-									<li class="d-inline ml-2"><span class="text-primary">共 <i th:text="${followNotice.count}">3</i> 条会话</span></li>
+									<li class="d-inline ml-2">
+										<a th:href="@{/notice/detail/follow}" class="text-primary">
+											共 <i th:text="${followNotice.count}">3</i> 条会话
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>

@@ -1,6 +1,7 @@
 package cn.moyunying.community.dao;
 
 import cn.moyunying.community.entity.DiscussPost;
+import cn.moyunying.community.entity.Message;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,4 +27,7 @@ public interface DiscussPostMapper {
     int updateStatus(int id, int status);
 
     int updateScore(int id, double score);
+
+    // 查询当前用户的帖子列表
+    List<DiscussPost> selectDiscussPostsByUserId(int userId, int offset, int limit);
 }

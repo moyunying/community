@@ -64,4 +64,12 @@
         update discuss_post set score = #{score} where id = #{id}
     </update>
 
+    <select id="selectDiscussPostsByUserId" resultType="DiscussPost">
+        select <include refid="selectFields"></include>
+        from discuss_post
+        where user_id = #{userId} and status != 2
+        order by id desc
+        limit #{offset}, #{limit}
+    </select>
+
 </mapper>

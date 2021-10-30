@@ -1,6 +1,5 @@
 package cn.moyunying.community.service;
 
-import cn.moyunying.community.dao.LoginTicketMapper;
 import cn.moyunying.community.dao.UserMapper;
 import cn.moyunying.community.entity.LoginTicket;
 import cn.moyunying.community.entity.User;
@@ -38,14 +37,10 @@ public class UserService implements CommunityConstant {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
-//    @Autowired
-//    private LoginTicketMapper loginTicketMapper;
-
     @Autowired
     private RedisTemplate redisTemplate;
 
     public User findUserById(int id) {
-//        return userMapper.selectById(id);
         User user = getCache(id);
         if (user == null) {
             user = initCache(id);
@@ -161,7 +156,6 @@ public class UserService implements CommunityConstant {
         loginTicket.setTicket(CommunityUtil.generateUUID());
         loginTicket.setStatus(0);
         loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000));
-//        loginTicketMapper.insertLoginTicket(loginTicket);
 
         String redisKey = RedisKeyUtil.getTicketKey(loginTicket.getTicket());
         redisTemplate.opsForValue().set(redisKey, loginTicket);
@@ -171,7 +165,6 @@ public class UserService implements CommunityConstant {
     }
 
     public void logout(String ticket) {
-//        loginTicketMapper.updateStatus(ticket, 1);
         String redisKey = RedisKeyUtil.getTicketKey(ticket);
         LoginTicket loginTicket = (LoginTicket) redisTemplate.opsForValue().get(redisKey);
         loginTicket.setStatus(1);
@@ -179,13 +172,11 @@ public class UserService implements CommunityConstant {
     }
 
     public LoginTicket findLoginTicket(String ticket) {
-//        return loginTicketMapper.selectByTicket(ticket);
         String redisKey = RedisKeyUtil.getTicketKey(ticket);
         return (LoginTicket) redisTemplate.opsForValue().get(redisKey);
     }
 
     public int updateHeader(int userId, String headerUrl) {
-//        return userMapper.updateHeader(userId, headerUrl);
         int rows = userMapper.updateHeader(userId, headerUrl);
         clearCache(userId);
         return rows;
